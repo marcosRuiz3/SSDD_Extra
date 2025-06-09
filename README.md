@@ -70,12 +70,15 @@ Para ver las peticiones...
 ~/TU_RUTA/kafka/bin/kafka-console-consumer.sh --topic peticiones --bootstrap-server localhost:9092 --from-beginning
 
 ```
+Mi ejemplo: {"id": "op1", "operation": "sum", "args": {"op1": 5.0, "op2": 10.0}}
 
 Para ver las respuestas...
 ```
 ~/TU_RUTA/kafka/bin/kafka-console-consumer.sh --topic respuestas --bootstrap-server localhost:9092 --from-beginning
 
 ```
+Mi ejemplo: "{\"id\": \"op1\", \"status\": true, \"result\": 15.0}"
+
 
 ## Configuration
 
