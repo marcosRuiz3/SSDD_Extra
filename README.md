@@ -28,9 +28,15 @@ Para que Kafka funcione correctamente, primero se debe iniciar Zookeeper y luego
 
 Ejecutar los siguientes comandos en la terminal:  
 ```
-~/TU_RUTA/kafka/bin/zookeeper-server-start.sh config/zookeeper.properties
-~/TU_RUTA/kafka/bin/kafka-server-start.sh config/server.properties
+~/TU_RUTA/kafka/bin/zookeeper-server-start.sh ~/Escritorio/kafka/config/zookeeper.properties &
+~/TU_RUTA/kafka/bin/kafka-server-start.sh ~/Escritorio/kafka/config/server.properties &
 ```
+
+Verifica que Kafka esta corriendo: 
+```
+nc -zv localhost 9092
+```
+
 `TU_RUTA` es el directorio donde tienes instalado kafka
 
 ## Creación de Topics
@@ -42,12 +48,33 @@ El servicio usa los topics `peticiones` y `respuestas`, que deben crearse antes 
 ~/TU_RUTA/kafka/bin/kafka-topics.sh --create --topic respuestas --bootstrap-server localhost:9092
 ```
 
+
 ## Execution
 
 To run the template server, just install the package and run
 
 ```
 ssdd-calculator --Ice.Config=config/calculator.config
+```
+
+1º Ahora podremos ejecutar ```python3 kafka_producer.py``` para cargar el código y asegurarnos de que el productor Kafka está listo para enviar mensajes.
+
+2º Una vez hecho esto abrimos un script de python con el comando `python3` 
+
+3º ```>>> from kafka import KafkaProducer``` y enviamos el mensaje. por ejemplo ```>>> send_calculation_request("op1", "sum", 5.0, 10.0)```
+
+4º Para comprobar que todo funciona correctamente y poder ver el contenido de los topics para ver los mensajes JSON enviados y recibidos, ejecuta:
+
+Para ver las peticiones...
+```
+~/TU_RUTA/kafka/bin/kafka-console-consumer.sh --topic peticiones --bootstrap-server localhost:9092 --from-beginning
+
+```
+
+Para ver las respuestas...
+```
+~/TU_RUTA/kafka/bin/kafka-console-consumer.sh --topic respuestas --bootstrap-server localhost:9092 --from-beginning
+
 ```
 
 ## Configuration
