@@ -20,6 +20,27 @@ Or, if you want to modify it during your development,
 ```
 pip install -e .
 ```
+## Configuración de Zookeeper y Kafka  
+
+Para que Kafka funcione correctamente, primero se debe iniciar Zookeeper y luego el broker Kafka.  
+
+### **Inicio de Zookeeper y Kafka**  
+
+Ejecutar los siguientes comandos en la terminal:  
+```
+~/TU_RUTA/kafka/bin/zookeeper-server-start.sh config/zookeeper.properties
+~/TU_RUTA/kafka/bin/kafka-server-start.sh config/server.properties
+```
+`TU_RUTA` es el directorio donde tienes instalado kafka
+
+## Creación de Topics
+
+El servicio usa los topics `peticiones` y `respuestas`, que deben crearse antes de ejecutar el servidor:
+
+```
+~/TU_RUTA/kafka/bin/kafka-topics.sh --create --topic peticiones --bootstrap-server localhost:9092
+~/TU_RUTA/kafka/bin/kafka-topics.sh --create --topic respuestas --bootstrap-server localhost:9092
+```
 
 ## Execution
 
